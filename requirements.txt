@@ -1,0 +1,6 @@
+numpy
+pillow
+onnxruntime
+huggingface_hub
+pyarrow
+ultralytics
