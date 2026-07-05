@@ -43,6 +43,12 @@ python scripts/04_probe_onnx.py path/to/shelf.jpg --onnx runs/detect/tags/weight
 
 `03_train.py` prints `val mAP50 / mAP50-95` at the end — measured on **your** val images only.
 
+## Results (from the production run this was extracted from)
+
+- **643 domain shelf photos** auto-labeled by the teacher — zero boxes drawn by hand — merged with **~1,700 public images**, validated on a **71-image domain-pure val split**.
+- The fine-tuned student **replaced the generic teacher in the production pipeline**: it recovers domain tag styles the teacher partially misses (yellow rail-strip tags), which the downstream price-reading stage depends on.
+- A later 2-class retrain (price tags + promo banners) with the same bootstrap recipe was adopted wholesale after a side-by-side re-judge on a locked ground-truth set showed it recovered additional correct price extractions with no regressions.
+
 ## Design notes
 
 - **Val split is domain-pure.** The public D-Shatnev images are merged into *train only*. If foreign tags leaked into val, the metric would flatter the model on data you don't care about.
